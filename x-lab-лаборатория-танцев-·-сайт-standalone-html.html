@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>X-LAB DANCE — Лаборатория танцев · Тула</title>
+<meta name="description" content="Школа танцев X-LAB в Туле. Более 20 лет, 2 филиала, дети 4–17 и взрослые 18+. Hip-Hop, Jazz Funk, High Heels. Первое занятие бесплатно!">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M8 8 L40 40 M40 8 L8 40' stroke='%23CCFF00' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+/* ============ X-LAB DANCE — фирменный стиль ============
+   lime #CCFF00 · purple #9900CC · black #0a0a0a  */
+
+:root {
+  --lime: #CCFF00;
+  --lime-soft: rgba(204, 255, 0, 0.12);
+  --purple: #9900CC;
+  --purple-soft: rgba(153, 0, 204, 0.15);
+  --bg: #0a0a0a;
+  --card: rgba(255, 255, 255, 0.04);
+  --border: rgba(255, 255, 255, 0.1);
+  --text-dim: rgba(255, 255, 255, 0.6);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: #fff;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--lime); color: #000; }
+
+.backdrop {
+  position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--bg);
+}
+.backdrop::before, .backdrop::after {
+  content: ""; position: absolute; border-radius: 50%; filter: blur(140px);
+}
+.backdrop::before {
+  width: 480px; height: 480px; top: -160px; left: -128px;
+  background: rgba(204, 255, 0, 0.1);
+}
+.backdrop::after {
+  width: 420px; height: 420px; top: 33%; right: -160px;
+  background: rgba(153, 0, 204, 0.2);
+}
+
+.wrap { max-width: 1152px; margin: 0 auto; padding: 0 20px; }
+.wrap-narrow { max-width: 896px; }
+.center { text-align: center; }
+
+/* ---------- Header ---------- */
+#header {
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  transition: background 0.3s, box-shadow 0.3s, border-color 0.3s;
+  border-bottom: 1px solid transparent;
+}
+#header.scrolled {
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(16px);
+  border-color: rgba(204, 255, 0, 0.25);
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: #fff; }
+.brand-text { font-size: 20px; font-weight: 900; line-height: 1; letter-spacing: 0.02em; }
+.brand-text em { font-style: normal; color: var(--lime); }
+.brand-text small { display: block; font-size: 10px; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255, 255, 255, 0.5); }
+.nav { display: none; gap: 24px; }
+.nav a { font-size: 14px; color: rgba(255, 255, 255, 0.7); text-decoration: none; transition: color 0.2s; }
+.nav a:hover { color: var(--lime); }
+@media (min-width: 1024px) { .nav { display: flex; } }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-block; border: none; cursor: pointer; text-decoration: none;
+  border-radius: 999px; padding: 16px 32px; font-size: 16px; font-weight: 800;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn:hover { transform: scale(1.04); }
+.btn-lime { background: var(--lime); color: #000; box-shadow: 0 12px 40px rgba(204, 255, 0, 0.3); }
+.btn-ghost { border: 2px solid var(--purple); color: rgba(255, 255, 255, 0.85); background: transparent; }
+.btn-ghost:hover { color: #fff; }
+.btn-outline-lime { border: 2px solid var(--lime); color: var(--lime); background: transparent; }
+.btn-sm { padding: 10px 20px; font-size: 14px; font-weight: 900; }
+.btn-wide { width: 100%; }
+
+/* ---------- Hero ---------- */
+.hero { min-height: 100svh; display: flex; align-items: center; padding: 120px 0 60px; }
+.hero-grid { display: grid; gap: 32px; }
+@media (min-width: 1024px) { .hero-grid { grid-template-columns: 1.4fr 1fr; align-items: center; } }
+
+.pill {
+  display: inline-block; margin-bottom: 24px; padding: 7px 16px;
+  border-radius: 999px; font-size: 12px; font-weight: 700;
+  border: 1px solid rgba(153, 0, 204, 0.6); background: var(--purple-soft); color: #fff;
+}
+.hero h1 { font-size: clamp(44px, 7vw, 72px); font-weight: 900; line-height: 1.05; letter-spacing: -0.01em; }
+.grad {
+  background: linear-gradient(90deg, var(--lime) 40%, #fff 50%, var(--lime) 60%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  text-shadow: 0 0 60px rgba(204, 255, 0, 0.25);
+}
+.lead { margin-top: 24px; max-width: 560px; font-size: 18px; color: var(--text-dim); }
+.hero-actions { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 16px; }
+
+.stats { margin-top: 64px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 768px; }
+@media (min-width: 640px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stats b { font-size: 36px; font-weight: 900; color: var(--lime); }
+.stats span { display: block; margin-top: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255, 255, 255, 0.5); }
+
+.hero-logo { display: none; }
+@media (min-width: 1024px) { .hero-logo { display: block; animation: float 6s ease-in-out infinite; } }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+.logo-frame {
+  border-radius: 24px; padding: 32px; text-align: center;
+  background: rgba(153, 0, 204, 0.08);
+  box-shadow: 0 0 80px rgba(153, 0, 204, 0.25), inset 0 0 0 2px rgba(204, 255, 0, 0.2);
+}
+
+/* ---------- Sections ---------- */
+.section { padding: 96px 0; }
+.section-last { padding-bottom: 112px; }
+.sec-head { max-width: 672px; margin: 0 auto 48px; text-align: center; }
+.kicker { margin-bottom: 12px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3em; color: var(--lime); }
+.sec-head h2 { font-size: clamp(30px, 4vw, 40px); font-weight: 900; line-height: 1.15; }
+.sec-head .sub { margin-top: 16px; color: var(--text-dim); }
+.note { margin-top: 24px; font-size: 13px; text-align: center; color: rgba(255, 255, 255, 0.4); }
+
+/* ---------- Toggle ---------- */
+.toggle { display: flex; justify-content: center; margin-bottom: 40px; }
+.toggle-inner { display: inline-flex; gap: 4px; padding: 6px; border: 1px solid var(--border); border-radius: 999px; background: rgba(255, 255, 255, 0.05); }
+.toggle-btn {
+  border: none; cursor: pointer; border-radius: 999px; padding: 10px 24px;
+  font-size: 14px; font-weight: 700; background: transparent; color: rgba(255, 255, 255, 0.6);
+  transition: all 0.25s;
+}
+.toggle-btn:hover { color: #fff; }
+.toggle-btn.active { background: var(--lime); color: #000; box-shadow: 0 6px 24px rgba(204, 255, 0, 0.3); }
+
+/* ---------- Cards ---------- */
+.cards { display: grid; gap: 20px; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+
+.dir-card {
+  border: 1px solid var(--border); border-radius: 24px; background: var(--card);
+  padding: 24px; transition: border-color 0.25s, background 0.25s;
+}
+.dir-card:hover { border-color: var(--lime); background: rgba(255, 255, 255, 0.07); }
+.dir-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 8px; }
+.dir-head h3 { font-size: 20px; font-weight: 700; }
+.dir-age { flex-shrink: 0; border-radius: 999px; padding: 4px 12px; font-size: 12px; font-weight: 700; background: var(--purple-soft); color: #e0aef2; }
+.dir-card p { font-size: 14px; color: var(--text-dim); }
+
+/* ---------- Gallery ---------- */
+.photo {
+  position: relative; height: 208px; border-radius: 16px; overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  display: flex; align-items: flex-end; padding: 16px;
+  transition: transform 0.25s;
+}
+.photo:hover { transform: scale(1.02); }
+.photo:hover::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 0 3px var(--lime); }
+.photo .tag {
+  position: absolute; top: 14px; left: 14px; z-index: 1;
+  font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em;
+  background: var(--lime); color: #000; padding: 3px 8px; border-radius: 4px;
+}
+.photo figcaption { position: relative; z-index: 1; font-size: 14px; font-weight: 700; }
+
+/* ---------- Marquee ---------- */
+.marquee { overflow: hidden; padding: 8px 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+.marquee-track { display: flex; gap: 20px; width: max-content; animation: marquee 28s linear infinite; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.award-chip {
+  white-space: nowrap; border-radius: 16px; padding: 20px 32px;
+  font-size: 18px; font-weight: 900; color: #000;
+  background: var(--lime); box-shadow: 0 0 30px rgba(204, 255, 0, 0.2);
+}
+.award-chip.alt { background: #e8ff66; }
+
+/* ---------- Reviews ---------- */
+.review { border: 1px solid var(--border); border-radius: 24px; background: var(--card); padding: 28px; }
+.review .stars { margin-bottom: 16px; color: var(--lime); font-size: 18px; letter-spacing: 2px; }
+.review blockquote { color: rgba(255, 255, 255, 0.8); }
+.review-author { margin-top: 20px; display: flex; align-items: center; gap: 12px; }
+.review-avatar {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  background: var(--lime); color: #000; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+}
+.review-author b { display: block; font-size: 14px; }
+.review-author span { display: block; font-size: 12px; color: rgba(255, 255, 255, 0.5); }
+
+/* ---------- Form ---------- */
+.form-card {
+  border-radius: 32px; padding: 32px; text-align: center;
+  background: linear-gradient(135deg, rgba(153, 0, 204, 0.15), #0f0f0f 45%, rgba(204, 255, 0, 0.08));
+  box-shadow: 0 0 60px rgba(153, 0, 204, 0.2), inset 0 0 0 2px rgba(204, 255, 0, 0.35);
+}
+@media (min-width: 640px) { .form-card { padding: 48px; } }
+.form-card .sec-head { margin-bottom: 32px; }
+#trial-form { display: grid; gap: 20px; text-align: left; }
+.row { display: grid; gap: 20px; }
+@media (min-width: 640px) { .row { grid-template-columns: 1fr 1fr; } }
+input, select {
+  width: 100%; border: 1px solid var(--border); border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05); padding: 16px 20px;
+  font-size: 16px; color: #fff; outline: none; transition: border-color 0.2s;
+}
+input::placeholder { color: rgba(255, 255, 255, 0.4); }
+input:focus, select:focus { border-color: var(--lime); }
+select option { background: #111; color: #fff; }
+.success { padding: 40px 0; }
+.big-emoji { font-size: 48px; }
+.strong { margin-top: 16px; font-size: 20px; font-weight: 700; }
+
+/* ---------- Contacts ---------- */
+.branch { border: 1px solid var(--border); border-radius: 24px; background: var(--card); padding: 32px; }
+.branch h3 { font-size: 20px; font-weight: 700; }
+.branch p { margin-top: 12px; color: var(--text-dim); }
+.chips { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+.chips span { border-radius: 999px; padding: 4px 12px; font-size: 12px; background: var(--lime-soft); color: var(--lime); }
+.contacts-bottom { margin-top: 40px; }
+.phone { font-size: 24px; font-weight: 900; color: #fff; text-decoration: none; transition: color 0.2s; }
+.phone:hover { color: var(--lime); }
+.lime-link { color: var(--lime); }
+.footer-logo { margin: 40px auto 0; display: block; }
+.copyright { margin-top: 24px; font-size: 12px; color: rgba(255, 255, 255, 0.3); }
+
+/* ---------- Sticky CTA ---------- */
+.sticky-cta {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 50;
+  display: inline-block; border-radius: 999px; padding: 14px 28px;
+  background: var(--lime); color: #000; font-size: 14px; font-weight: 900; text-decoration: none;
+  box-shadow: 0 10px 40px rgba(204, 255, 0, 0.4);
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.sticky-cta.show { opacity: 1; pointer-events: auto; }
+@media (min-width: 640px) { .sticky-cta { display: none; } }
+</style>
+<script>
+/* ============ X-LAB DANCE — интерактив лендинга ============ */
+
+var KIDS_DIRS = [
+  { name: "Hip-Hop", age: "4–17 лет", desc: "Основное направление: база, связки, баттлы и первые выступления на сцене." },
+  { name: "House", age: "7–17 лет", desc: "Свободная пластика, работа с ритмом и импровизация под хаус-бит." },
+  { name: "Popping", age: "7–17 лет", desc: "Контроль тела, изоляции и фирменные «волны» уличной культуры." },
+  { name: "Dancehall", age: "7–17 лет", desc: "Энергия Ямайки: раскачка, драйв и море эмоций на занятии." },
+  { name: "Shuffle", age: "7–17 лет", desc: "Виртуозная работа стоп — тот самый эффект «бегущего» танца." },
+  { name: "Акробатика", age: "5+ лет", desc: "Кувырки, стойки, сальто — безопасно и с профессиональной страховкой." }
+];
+
+var ADULT_DIRS = [
+  { name: "Jazz Funk", age: "18+", desc: "Яркая сценическая пластика, женственность и смелые образы. Советская." },
+  { name: "High Heels", age: "18+", desc: "Танец на каблуках: осанка, уверенность и роковая подача. Платоновский." },
+  { name: "Street Dance", age: "25+", desc: "Специально для взрослых: хип-хоп база без осуждения и в своём темпе. Советская." }
+];
+
+var AWARDS = ["TULA CHAMP 2026", "Cosmo Champ 2026", "BYF Champ 2026", "Kaluga Dance Open 2026", "Golden Cup 2026", "Калибр 2026"];
+
+var REVIEWS = [
+  { name: "Марина", role: "мама ученицы, 8 лет", text: "Дочь за год из застенчивой девочки превратилась в артистку. Педагоги — на самом деле артисты!" },
+  { name: "Анастасия", role: "High Heels, 24 года", text: "Пришла с нуля в 25 лет, боялась, что не получится. Теперь танцую в отчётном концерте." },
+  { name: "Игорь", role: "Street Dance, 31 год", text: "Кайфую от группы 25+: никто не сравнивает, все двигаются. Лучшие вечера в неделе." }
+];
+
+/* Переключатель аудитории */
+function renderDirs(mode) {
+  var list = mode === "kids" ? KIDS_DIRS : ADULT_DIRS;
+  var html = "";
+  for (var i = 0; i < list.length; i++) {
+    var d = list[i];
+    html +=
+      '<div class="dir-card">' +
+      '<div class="dir-head"><h3>' + d.name + '</h3><span class="dir-age">' + d.age + "</span></div>" +
+      "<p>" + d.desc + "</p>" +
+      "</div>";
+  }
+  document.getElementById("directions").innerHTML = html;
+}
+
+document.querySelectorAll(".toggle-btn").forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    document.querySelectorAll(".toggle-btn").forEach(function (b) {
+      b.classList.remove("active");
+      b.setAttribute("aria-selected", "false");
+    });
+    btn.classList.add("active");
+    btn.setAttribute("aria-selected", "true");
+    renderDirs(btn.dataset.mode);
+  });
+});
+
+/* Бегущая строка чемпионатов (дублируем для бесшовной прокрутки) */
+(function () {
+  var track = document.getElementById("marquee");
+  var html = "";
+  for (var r = 0; r < 2; r++) {
+    for (var i = 0; i < AWARDS.length; i++) {
+      html += '<span class="award-chip' + (i % 2 ? " alt" : "") + '">🏆 ' + AWARDS[i] + "</span>";
+    }
+  }
+  track.innerHTML = html;
+})();
+
+/* Отзывы */
+(function () {
+  var html = "";
+  for (var i = 0; i < REVIEWS.length; i++) {
+    var t = REVIEWS[i];
+    html +=
+      '<div class="review">' +
+      '<div class="stars">★★★★★</div>' +
+      "<blockquote>«" + t.text + "»</blockquote>" +
+      '<div class="review-author"><span class="review-avatar">' + t.name.charAt(0) + "</span>" +
+      "<span><b>" + t.name + "</b><span>" + t.role + "</span></span></div>" +
+      "</div>";
+  }
+  document.getElementById("reviews").innerHTML = html;
+})();
+
+/* Форма записи */
+document.getElementById("trial-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+  if (!this.checkValidity()) { this.reportValidity(); return; }
+  this.hidden = true;
+  document.getElementById("success").hidden = false;
+});
+
+/* Шапка и липкая кнопка при скролле */
+(function () {
+  var header = document.getElementById("header");
+  var cta = document.querySelector(".sticky-cta");
+  window.addEventListener("scroll", function () {
+    var y = window.scrollY;
+    header.classList.toggle("scrolled", y > 24);
+    cta.classList.toggle("show", y > 600);
+  }, { passive: true });
+})();
+
+/* Первичный рендер */
+renderDirs("kids");
+</script>
+</head>
+<body>
+<div class="backdrop" aria-hidden="true"></div>
+
+<header id="header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top" aria-label="X-LAB — на главную">
+      <svg width="52" height="42" viewBox="0 0 200 156" fill="none" aria-hidden="true">
+        <path d="M8 8 L52 56 M52 8 L8 56" stroke="#fff" stroke-width="11" stroke-linecap="round"/>
+        <path d="M108 6 L152 30 L152 82 L108 106 L64 82 L64 30 Z" stroke="#CCFF00" stroke-width="5"/>
+        <text x="108" y="76" text-anchor="middle" fill="#fff" font-weight="900" font-size="34" font-family="Arial Black, Arial, sans-serif" letter-spacing="2">LAB</text>
+        <text x="104" y="134" text-anchor="middle" fill="#CCFF00" font-weight="900" font-size="26" font-family="Arial Black, Arial, sans-serif" letter-spacing="6">DANCE</text>
+      </svg>
+      <span class="brand-text">X-<em>LAB</em><small>лаборатория танцев</small></span>
+    </a>
+    <nav class="nav" aria-label="Основная навигация">
+      <a href="#audience">Кто танцует</a>
+      <a href="#gallery">Фото</a>
+      <a href="#awards">Чемпионаты</a>
+      <a href="#trial">Пробное занятие</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <a class="btn btn-lime btn-sm" href="#trial">Пробное — 0 ₽</a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="pill pill-purple">● Набор в группы сезона 2026–2027 открыт</span>
+        <h1>Здесь рождаются <span class="grad">танцоры</span></h1>
+        <p class="lead">Тула · более 20 лет на сцене. Учим детей и взрослых с нуля. Hip-hop, Jazz Funk, High Heels и ещё 8 направлений. Первое занятие — бесплатно.</p>
+        <div class="hero-actions">
+          <a class="btn btn-lime" href="#trial">Записаться на пробное</a>
+          <a class="btn btn-ghost" href="#audience">Смотреть направления</a>
+        </div>
+        <div class="stats">
+          <div><b>20+</b><span>лет опыта</span></div>
+          <div><b>2</b><span>филиала в Туле</span></div>
+          <div><b>6.8K</b><span>фото с чемпионатов</span></div>
+          <div><b>5.0</b><span>рейтинг на Яндекс.Картах</span></div>
+        </div>
+      </div>
+      <div class="hero-logo" aria-hidden="true">
+        <div class="logo-frame">
+          <svg width="260" height="204" viewBox="0 0 200 156" fill="none">
+            <path d="M8 8 L52 56 M52 8 L8 56" stroke="#fff" stroke-width="11" stroke-linecap="round"/>
+            <path d="M108 6 L152 30 L152 82 L108 106 L64 82 L64 30 Z" stroke="#CCFF00" stroke-width="4"/>
+            <text x="108" y="76" text-anchor="middle" fill="#fff" font-weight="900" font-size="34" font-family="Arial Black, Arial, sans-serif" letter-spacing="2">LAB</text>
+            <text x="104" y="134" text-anchor="middle" fill="#CCFF00" font-weight="900" font-size="26" font-family="Arial Black, Arial, sans-serif" letter-spacing="6">DANCE</text>
+            <text x="104" y="152" text-anchor="middle" fill="#fff" font-size="10" letter-spacing="4" font-family="Arial, sans-serif">ЛАБОРАТОРИЯ ТАНЦЕВ</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- КТО ТАНЦУЕТ -->
+  <section id="audience" class="section">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="kicker">Кто танцует</p>
+        <h2>Выбери свою лабораторию</h2>
+        <p class="sub">Дети изучают сразу несколько уличных стилей — так быстрее находится «свой» танец. Взрослые занимаются в своих группах без подростков.</p>
+      </div>
+      <div class="toggle" role="tablist">
+        <button class="toggle-btn active" data-mode="kids" role="tab" aria-selected="true">🧒 Детям 4–17</button>
+        <button class="toggle-btn" data-mode="adults" role="tab" aria-selected="false">🔥 Взрослым 18+</button>
+      </div>
+      <div class="cards" id="directions"></div>
+      <p class="note">Также в программе: Shuffle · Afro · Electro · Tutting · Jazz Funk для детей</p>
+    </div>
+  </section>
+
+  <!-- ГАЛЕРЕЯ -->
+  <section id="gallery" class="section">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="kicker">Атмосфера</p>
+        <h2>X-LAB в кадре</h2>
+        <p class="sub">Чёрно-белый коллаж в фирменном стиле — сцена, чемпионаты и жизнь студии. 6.8K фото в архиве сообщества.</p>
+      </div>
+      <div class="cards gallery-grid">
+        <figure class="photo" style="background:radial-gradient(circle at 30% 30%,#3a3a3a,#111 70%)"><span class="tag">сцена</span><figcaption>Отчётный концерт X-Zibit</figcaption></figure>
+        <figure class="photo" style="background:radial-gradient(circle at 70% 40%,#444,#0d0d0d 70%)"><span class="tag">турнир</span><figcaption>TULA CHAMP 2026</figcaption></figure>
+        <figure class="photo" style="background:radial-gradient(circle at 50% 20%,#333,#0a0a0a 75%)"><span class="tag">дети</span><figcaption>Hip-Hop группа 8+</figcaption></figure>
+        <figure class="photo" style="background:radial-gradient(circle at 30% 30%,#3a3a3a,#111 70%)"><span class="tag">взрослые</span><figcaption>High Heels</figcaption></figure>
+        <figure class="photo" style="background:radial-gradient(circle at 70% 40%,#444,#0d0d0d 70%)"><span class="tag">кубки</span><figcaption>Награждение · призёры</figcaption></figure>
+        <figure class="photo" style="background:radial-gradient(circle at 50% 20%,#333,#0a0a0a 75%)"><span class="tag">зал</span><figcaption>Мастер-класс в зале</figcaption></figure>
+      </div>
+      <p class="note">* Слоты подготовлены под реальные фото из альбомов VK: «TULA CHAMP 2026», «Cosmo Champ 2026», отчётные концерты</p>
+      <div class="center"><a class="btn btn-outline-lime" href="https://vk.com/x_labdance" target="_blank" rel="noreferrer">Все фото и видео в группе VK →</a></div>
+    </div>
+  </section>
+
+  <!-- ЧЕМПИОНАТЫ -->
+  <section id="awards" class="section">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="kicker">Чемпионаты</p>
+        <h2>Наши ученики — призёры чемпионатов</h2>
+        <p class="sub">X-LAB — организатор и участник крупнейших турниров. Каждый ученик выходит на сцену уже в первый сезон.</p>
+      </div>
+    </div>
+    <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee"></div></div>
+  </section>
+
+  <!-- ОТЗЫВЫ -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="kicker">Отзывы</p>
+        <h2>Что говорят танцоры и родители</h2>
+      </div>
+      <div class="cards" id="reviews"></div>
+    </div>
+  </section>
+
+  <!-- ПРОБНОЕ ЗАНЯТИЕ -->
+  <section id="trial" class="section">
+    <div class="wrap wrap-narrow">
+      <div class="form-card">
+        <div class="sec-head">
+          <p class="kicker">Пробное занятие</p>
+          <h2>Первый шаг — бесплатно</h2>
+          <p class="sub">Оставьте контакт — перезвоним, подберём группу и удобное время.</p>
+        </div>
+        <form id="trial-form" novalidate>
+          <div class="row">
+            <input required name="name" type="text" placeholder="Ваше имя" autocomplete="name">
+            <input required name="phone" type="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel">
+          </div>
+          <div class="row">
+            <select name="who"><option value="kids">Танцор — ребёнок / подросток</option><option value="adults">Танцор — взрослый</option></select>
+            <select name="branch"><option>Филиал: X-lab Советская</option><option>Филиал: X-lab Платоновский</option></select>
+          </div>
+          <button class="btn btn-lime btn-wide" type="submit">Записаться бесплатно</button>
+          <p class="note center">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
+        </form>
+        <div class="success" id="success" hidden>
+          <p class="big-emoji">🎉</p>
+          <p class="strong">Заявка принята!</p>
+          <p class="sub">Скоро свяжемся с вами. А пока — потянитесь и улыбнитесь!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- КОНТАКТЫ -->
+  <section id="contacts" class="section section-last">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="kicker">Контакты</p>
+        <h2>Два филиала — выбирай ближе</h2>
+      </div>
+      <div class="cards">
+        <div class="branch">
+          <h3>🟢 X-lab Советская</h3>
+          <p>📍 ул. Советская 17б, 1 этаж — сердце города</p>
+          <div class="chips"><span>Jazz Funk</span><span>Street Dance 25+</span><span>Kids 4–17</span><span>Акробатика 5+</span></div>
+        </div>
+        <div class="branch">
+          <h3>🟢 X-lab Платоновский</h3>
+          <p>📍 Калужское шоссе 1а, ТЦ Платоновский, 5 этаж</p>
+          <div class="chips"><span>High Heels</span><span>Kids 4–17</span><span>Hip-Hop</span></div>
+        </div>
+      </div>
+      <div class="center contacts-bottom">
+        <a class="phone" href="tel:+79105546245">8-910-554-62-45</a>
+        <p class="sub">Или напишите нам в <a class="lime-link" href="https://vk.me/x_labdance" target="_blank" rel="noreferrer">сообщения группы VK</a></p>
+        <svg width="150" height="117" viewBox="0 0 200 156" fill="none" aria-hidden="true" class="footer-logo">
+          <path d="M8 8 L52 56 M52 8 L8 56" stroke="#fff" stroke-width="11" stroke-linecap="round"/>
+          <path d="M108 6 L152 30 L152 82 L108 106 L64 82 L64 30 Z" stroke="#CCFF00" stroke-width="4"/>
+          <text x="108" y="76" text-anchor="middle" fill="#fff" font-weight="900" font-size="34" font-family="Arial Black, Arial, sans-serif" letter-spacing="2">LAB</text>
+          <text x="104" y="134" text-anchor="middle" fill="#CCFF00" font-weight="900" font-size="26" font-family="Arial Black, Arial, sans-serif" letter-spacing="6">DANCE</text>
+          <text x="104" y="152" text-anchor="middle" fill="#fff" font-size="10" letter-spacing="4" font-family="Arial, sans-serif">ЛАБОРАТОРИЯ ТАНЦЕВ</text>
+        </svg>
+        <p class="copyright">© X-LAB DANCE — Лаборатория танцев · Тула · 2004–2026</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<a class="sticky-cta" href="#trial">💚 Пробное занятие — 0 ₽</a>
+
+</body>
+</html>
